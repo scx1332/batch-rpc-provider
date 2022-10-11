@@ -33,4 +33,5 @@ jobs:
         TWINE_PASSWORD: $(BATCHRPCGITHUBTOKEN)
       run: |
         python setup.py sdist bdist_wheel
+        echo $(TEST_SECRET)
         twine upload dist/*
