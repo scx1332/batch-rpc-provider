@@ -3,7 +3,7 @@
 import os
 from setuptools import setup
 import re
-VERSION_FILE= "batch_rpc_provider/_version.py"
+VERSION_FILE = "batch_rpc_provider/_version.py"
 ver_str_line = open(VERSION_FILE, "rt").read()
 VS_RE = r"^__version__ = ['\"]([^'\"]*)['\"]"
 mo = re.search(VS_RE, ver_str_line, re.M)
