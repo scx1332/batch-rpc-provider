@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 from setuptools import setup
 import re
 VERSION_FILE= "batch_rpc_provider/_version.py"
@@ -11,6 +12,11 @@ if mo:
 else:
     raise RuntimeError("Unable to find version string in %s." % (VERSION_FILE,))
 
+github_version = os.environ.get('GITHUB_RELEASE_VER')
+if github_version == "v" + ver_str:
+    print("Version in _version.py matches the tag name")
+else:
+    raise RuntimeError(f"Version in _version.py does not match the tag name (v{ver_str} != {github_version})")
 
 setup(name='batch_rpc_provider',
       version=ver_str,
