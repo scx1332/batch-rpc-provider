@@ -26,5 +26,5 @@ jobs:
         pip install .
     - name: Run tests
       run: |
-        python tests/test_simple.py
+        python tests/test_bundle.py
 
