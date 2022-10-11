@@ -5,6 +5,7 @@ from batch_rpc_provider import BatchRpcProvider, BatchRpcException
 
 POLYGON_RPC_ENDPOINT = os.environ.get('POLYGON_RPC_ENDPOINT', 'https://polygon-rpc.com')
 
+
 class TestSimple(unittest.IsolatedAsyncioTestCase):
     async def test_error(self):
         try:
