@@ -17,22 +17,25 @@ async def send_post(url, data):
         ('Content-Length', str(len(data_bytes)))
     ]
 
-    async with aiohttp.ClientSession(headers=headers) as session:
-        async with session.post(url, data=data_bytes) as result:
-            if result.status == 413:
-                logger.error(
-                    f"Data exceeded RPC limit, data size {len(data_bytes)} try lowering batch size")
-                raise BatchRpcException("Data too big")
-            if result.status != 200:
-                logger.error(f"RPC call failed with status code {result.status}")
-                raise BatchRpcException(f"Other error {result.status}")
-            try:
-                content = await result.text()
-                return content
-            except Exception as ex:
-                logger.error(f"Error reading result {ex}")
-                raise BatchRpcException(f"Error reading result {ex}")
-
+    try:
+        async with aiohttp.ClientSession(headers=headers) as session:
+            async with session.post(url, data=data_bytes) as result:
+                if result.status == 413:
+                    logger.error(
+                        f"Data exceeded RPC limit, data size {len(data_bytes)} try lowering batch size")
+                    raise BatchRpcException("Data too big")
+                if result.status != 200:
+                    logger.error(f"RPC call failed with status code {result.status}")
+                    raise BatchRpcException(f"Other error {result.status}")
+                try:
+                    content = await result.text()
+                    return content
+                except Exception as ex:
+                    logger.error(f"Error reading result {ex}")
+                    raise BatchRpcException(f"Error reading result {ex}")
+    except aiohttp.ClientConnectorError as ex:
+        logger.error(f"aiohttp.ClientConnectorError: {ex}")
+        raise BatchRpcException(f"aiohttp.ClientConnectorError: {ex}")
 
 def _erc20_get_balance_call(token_address, wallet, block):
     strip_wallet = wallet.replace("0x", "")

@@ -22,6 +22,9 @@ setup(name='batch_rpc_provider',
       url='https://github.com/scx1332/batch-rpc-provider',
       download_url='https://github.com/scx1332/batch-rpc-provider/archive/1.0.1.tar.gz',
       keywords=['MultiCall', 'json-rpc', 'web3'],
+      install_requires=[
+          'aiohttp',
+      ],
       classifiers=[
           'Development Status :: 3 - Alpha',
           # Chose either "3 - Alpha", "4 - Beta" or "5 - Production/Stable" as the current state of your package
