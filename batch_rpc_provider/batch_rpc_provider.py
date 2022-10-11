@@ -37,6 +37,7 @@ async def send_post(url, data):
         logger.error(f"aiohttp.ClientConnectorError: {ex}")
         raise BatchRpcException(f"aiohttp.ClientConnectorError: {ex}")
 
+
 def _erc20_get_balance_call(token_address, wallet, block):
     strip_wallet = wallet.replace("0x", "")
     abi_method = "70a08231000000000000000000000000"
