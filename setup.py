@@ -26,7 +26,7 @@ setup(name='batch_rpc_provider',
       author='Sieciech Czajka',
       author_email='sieciech.czajka@golem.network',
       url='https://github.com/scx1332/batch-rpc-provider',
-      download_url='https://github.com/scx1332/batch-rpc-provider/archive/1.0.1.tar.gz',
+      download_url='https://github.com/scx1332/batch-rpc-provider/archive/refs/tags/{github_version}.tar.gz',
       keywords=['MultiCall', 'json-rpc', 'web3'],
       install_requires=[
           'aiohttp',
@@ -37,6 +37,6 @@ setup(name='batch_rpc_provider',
           'Intended Audience :: Developers',  # Define that your audience are developers
           'Topic :: Software Development :: Build Tools',
           'License :: OSI Approved :: MIT License',  # Again, pick a license
-          'Programming Language :: Python :: 3.9',
+          'Programming Language :: Python :: 3.10',
       ],
       )
