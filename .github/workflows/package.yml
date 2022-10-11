@@ -28,7 +28,7 @@ jobs:
         pip install .
     - name: Run tests
       run: |
-      python test/test_simple.py
+        python test/test_simple.py
 
   deploy:
     runs-on: ubuntu-latest
