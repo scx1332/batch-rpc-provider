@@ -106,7 +106,7 @@ async def main():
         res = await get_holder(p)
         print("Oldest block: {}, archive depth: {}".format(res[0], res[1]))
     elif args.action == "holder_history":
-        res = await get_holder_history(p, POLYGON_USD_TOKEN, CHECK_USD_HOLDER, 30000000, 31000000, 10000)
+        res = await get_holder_history(p, POLYGON_USD_TOKEN, CHECK_USD_HOLDER, 30000000, 34000000, 43200)
     else:
         raise Exception("Unknown action")
 
