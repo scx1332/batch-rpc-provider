@@ -187,6 +187,8 @@ class BatchRpcProvider:
         call_params = _erc20_get_balance_call(token_address, holder, block_no)
 
         resp = await self._single_call(call_params)
+        if resp == "0x":
+            raise BatchRpcException("Unknown value 0x")
         return resp
 
     async def get_balance(self, wallet_address, block):
@@ -196,7 +198,7 @@ class BatchRpcProvider:
         }
         resp = await self._single_call(call_data_param)
         if resp == "0x":
-            raise Exception("Unknown value 0x")
+            raise BatchRpcException("Unknown value 0x")
         balance = int(resp, 0)
         return balance
 
@@ -242,6 +244,15 @@ class BatchRpcProvider:
     async def get_erc20_balances(self, holders, token_address, block_no='latest'):
         call_data_params = []
         for holder in holders:
+            call_params = _erc20_get_balance_call(token_address, holder, block_no)
+            call_data_params.append(call_params)
+
+        resp = await self._multi_call(call_data_params, self._batch_size)
+        return resp
+
+    async def get_erc20_balance_history(self, holder, token_address, blocks):
+        call_data_params = []
+        for block_no in blocks:
             call_params = _erc20_get_balance_call(token_address, holder, block_no)
             call_data_params.append(call_params)
 

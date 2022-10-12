@@ -23,4 +23,4 @@ async def check_address_availability(p: BatchRpcProvider, addr):
             return False
 
     min_succeeded_block = await binary_history_check(-1, latest_block, check)
-    return min_succeeded_block
+    return min_succeeded_block, latest_block - min_succeeded_block
