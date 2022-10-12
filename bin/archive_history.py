@@ -66,18 +66,22 @@ async def check_holder_nozero(p: BatchRpcProvider, token, address):
     return min_succeeded_block, latest_block - min_succeeded_block
 
 
-async def get_holder_history(p: BatchRpcProvider, token, address, min_block, max_block):
+async def get_holder_history(p: BatchRpcProvider, token, address, min_block, max_block, every_block=1):
     latest_block = await p.get_latest_block()
 
     chain_id = await p.get_chain_id()
 
     blocks = []
-    for block_no in range(min_block, max_block):
+    block_no = min_block
+    while block_no < max_block:
         blocks.append(f"0x{block_no:x}")
+        block_no += every_block
 
     balances = await p.get_erc20_balance_history(address, token, blocks)
 
     print(balances)
+
+
 
 async def get_holder(p: BatchRpcProvider):
 
@@ -102,7 +106,7 @@ async def main():
         res = await get_holder(p)
         print("Oldest block: {}, archive depth: {}".format(res[0], res[1]))
     elif args.action == "holder_history":
-        res = await get_holder_history(p, POLYGON_USD_TOKEN, CHECK_USD_HOLDER, 30000000, 30001000)
+        res = await get_holder_history(p, POLYGON_USD_TOKEN, CHECK_USD_HOLDER, 30000000, 31000000, 10000)
     else:
         raise Exception("Unknown action")
 
