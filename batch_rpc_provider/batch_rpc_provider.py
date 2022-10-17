@@ -212,6 +212,18 @@ class BatchRpcProvider:
         resp = await self._single_call(call_data_param)
         return resp
 
+    async def get_blocks_by_numbers(self, blocks, full_info):
+        call_data_params = []
+        for block_num in blocks:
+            call_data_param = {
+                "method": "eth_getBlockByNumber",
+                "params": [hex(block_num), full_info]
+            }
+            call_data_params.append(call_data_param)
+
+        resp = await self._multi_call(call_data_params, self._batch_size)
+        return resp
+
     async def get_blocks_by_range(self, block, number_of_blocks, full_info):
 
         call_data_params = []
