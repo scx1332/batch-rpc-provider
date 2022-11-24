@@ -279,3 +279,11 @@ class BatchRpcProvider:
 
         resp = await self._multi_call(call_data_params, self._batch_size)
         return resp
+
+    async def get_logs(self, block_from, block_to, address, topics):
+        call_data_param = {
+            "method": "eth_getLogs",
+            "params": [block_from, block_to, address, topics]
+        }
+        resp = await self._single_call(call_data_param)
+        return resp
